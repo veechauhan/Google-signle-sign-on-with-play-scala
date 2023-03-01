@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/home/vineet/google-sigle-sign-on-with-play-scala/app/views/index.scala.html:16:23: value name is not a member of models.User[0m
+[0m[[0m[31merror[0m] [0m[0m    <h3>Name@user.get.name</h3>[0m
+[0m[[0m[31merror[0m] [0m[0m                      ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

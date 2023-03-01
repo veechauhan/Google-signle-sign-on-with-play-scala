@@ -1,0 +1,40 @@
+@import models.User
+@(user:Option[User]=None)
+
+@main("Google single sign on with play scala") {
+  <h1>Google single sign on with play scala</h1>
+  <div class="modal-body" @if(user.isDefined){style="display: none;"}else{style="display: flex;"}>
+    <h4 style="color:black; margin:10px;">Sign in with @user.isDefined</h4>
+    <!-- Display Google sign-in button -->
+    <div class="btn-outline-light me-2 text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><div class="g-signin2" id="googleButton" @if(!user.isDefined){data-onsuccess="onSignIn"}></div></div>
+  </div>
+  @if(user.isDefined){
+    <div>
+      <img src='@user.get.profilePictureLink'>
+      <h3>ID:&nbsp;&nbsp;@user.get.userID</h3>
+      <h3>E-mail:&nbsp;&nbsp;@user.get.email</h3>
+      <h3>Name:&nbsp;&nbsp;@user.get.userName</h3>
+      <a onclick="signOut()" href="#">Sign out</a>
+    </div>
+  }
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="665271835264-30g0heq6gmv9hrmvkb034oq6ln2s8vrk.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <script>
+      function onSignIn(googleUser) {
+        const auth2 = gapi.auth2.getAuthInstance();
+        const authToken = googleUser.getAuthResponse(true).id_token
+        window.location.href = '/signIn?authToken=' + authToken
+      }
+      function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+              console.log("signOut")
+          });
+
+          auth2.disconnect();
+          window.location.href = '/'
+      }
+  </script>
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+}
